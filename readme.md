@@ -1,0 +1,1 @@
+# Easy Project #1 - Edge Detection Using Computer Vision
