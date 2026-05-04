@@ -16,6 +16,11 @@ def laplacian_method(image_gray):
     laplacian_abs = cv2.convertScaleAbs(laplacian)
     return laplacian_abs
 
+def canny_method(image_gray):
+    img_blur = cv2.GaussianBlur(image_gray, (5,5), 1.4)
+    canny_edges = cv2.Canny(img_blur, threshold1=100, threshold2=200)
+    return canny_edges
+
 def process_image(method, uploaded_file):
     if uploaded_file is None:
         return None, None
@@ -33,6 +38,8 @@ def process_image(method, uploaded_file):
         result = sobel_method(image_gray)
     elif method.lower() == "laplacian":
         result = laplacian_method(image_gray)
+    elif method.lower() == "canny":
+        result = canny_method(image_gray)
     else:
         result = image_gray
 
@@ -46,7 +53,7 @@ def main():
 
     method = st.radio(
         "Choose an edge detection method",
-        options=["Sobel", "Laplacian"],
+        options=["Original (gray)", "Sobel", "Laplacian", "Canny"],
     )
 
     if uploaded_file is None:
